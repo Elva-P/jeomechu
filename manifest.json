@@ -1,0 +1,12 @@
+{
+    "name": "저메추",
+    "short_name": "저메추",
+    "description": "오늘 저녁 메뉴를 추천해주는 앱",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#111111",
+    "theme_color": "#111111",
+    "lang": "ko-KR"
+}

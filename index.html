@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#111111">
+
+    <!-- iPhone PWA -->
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="저메추"
+    >
+
+    <link rel="manifest" href="manifest.json">
+
+    <title>저메추</title>
+
+
+<style>
+
+/* ==================================================
+   RESET
+================================================== */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    background: #f4f4f4;
+    color: #111;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
+        sans-serif;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* ==================================================
+   DARK MODE
+================================================== */
+
+body.dark {
+    background: #111111;
+    color: #f5f5f5;
+}
+
+
+/* ==================================================
+   APP
+================================================== */
+
+.app {
+    width: 100%;
+    max-width: 480px;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    margin: 0 auto;
+
+    padding:
+        calc(env(safe-area-inset-top) + 22px)
+        20px
+        calc(env(safe-area-inset-bottom) + 30px);
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 40px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+
+    letter-spacing: -1.5px;
+}
+
+.logo-sub {
+    margin-top: 3px;
+
+    color: #999;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+}
+
+.theme-button {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid #d8d8d8;
+    border-radius: 50%;
+
+    background: #ffffff;
+    color: #111111;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+body.dark .theme-button {
+    border-color: #333333;
+
+    background: #1d1d1d;
+    color: #ffffff;
+}
+
+
+/* ==================================================
+   HERO
+================================================== */
+
+.hero {
+    margin-bottom: 27px;
+}
+
+.hero-label {
+    margin-bottom: 8px;
+
+    color: #999999;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+}
+
+.hero h1 {
+    margin: 0;
+
+    font-size: 32px;
+    line-height: 1.12;
+
+    letter-spacing: -2px;
+}
+
+.hero p {
+    margin: 13px 0 0;
+
+    color: #888888;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    letter-spacing: -0.4px;
+}
+
+
+/* ==================================================
+   INPUT CARD
+================================================== */
+
+.input-card {
+    padding: 18px;
+
+    border: 1px solid #dddddd;
+    border-radius: 22px;
+
+    background: #ffffff;
+}
+
+body.dark .input-card {
+    border-color: #303030;
+
+    background: #1a1a1a;
+}
+
+.input-title {
+    margin-bottom: 11px;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 14px;
+
+    border: 1px solid #dddddd;
+    border-radius: 15px;
+
+    background: #f7f7f7;
+}
+
+body.dark .input-wrap {
+    border-color: #333333;
+
+    background: #222222;
+}
+
+.input-icon {
+    flex-shrink: 0;
+
+    font-size: 16px;
+}
+
+#moodInput {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: inherit;
+
+    font-size: 14px;
+}
+
+#moodInput::placeholder {
+    color: #999999;
+}
+
+
+/* ==================================================
+   EXAMPLE BUTTONS
+================================================== */
+
+.examples {
+    display: flex;
+
+    gap: 7px;
+
+    margin-top: 11px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+}
+
+.examples::-webkit-scrollbar {
+    display: none;
+}
+
+.example {
+    flex-shrink: 0;
+
+    padding: 7px 10px;
+
+    border: 1px solid #dddddd;
+    border-radius: 999px;
+
+    background: transparent;
+    color: #777777;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+body.dark .example {
+    border-color: #333333;
+
+    color: #aaaaaa;
+}
+
+
+/* ==================================================
+   CATEGORY
+================================================== */
+
+.category-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin:
+        25px
+        2px
+        10px;
+}
+
+.category-header-title {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.category-header-sub {
+    color: #999999;
+
+    font-size: 11px;
+}
+
+.categories {
+    display: flex;
+
+    gap: 7px;
+
+    overflow-x: auto;
+
+    padding-bottom: 2px;
+
+    scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar {
+    display: none;
+}
+
+.category {
+    flex-shrink: 0;
+
+    padding: 9px 13px;
+
+    border: 1px solid #dddddd;
+    border-radius: 999px;
+
+    background: transparent;
+    color: #777777;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border 0.15s ease;
+}
+
+body.dark .category {
+    border-color: #333333;
+
+    color: #aaaaaa;
+}
+
+.category.active {
+    border-color: #111111;
+
+    background: #111111;
+    color: #ffffff;
+
+    font-weight: 800;
+}
+
+body.dark .category.active {
+    border-color: #ffffff;
+
+    background: #ffffff;
+    color: #111111;
+}
+
+
+/* ==================================================
+   RESULT CARD
+================================================== */
+
+.result-card {
+    min-height: 275px;
+
+    margin-top: 16px;
+    padding: 28px 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    border: 1px solid #dddddd;
+    border-radius: 25px;
+
+    background: #ffffff;
+}
+
+body.dark .result-card {
+    border-color: #303030;
+
+    background: #1a1a1a;
+}
+
+.result-label {
+    margin-bottom: 13px;
+
+    color: #999999;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+}
+
+#result {
+    min-height: 48px;
+
+    font-size: 37px;
+    line-height: 1.2;
+
+    font-weight: 900;
+
+    letter-spacing: -2.5px;
+}
+
+.result-description {
+    margin-top: 12px;
+
+    color: #888888;
+
+    font-size: 12px;
+}
+
+.reason {
+    display: none;
+
+    margin-top: 17px;
+
+    padding: 8px 12px;
+
+    border-radius: 999px;
+
+    background: #f0f0f0;
+    color: #666666;
+
+    font-size: 11px;
+}
+
+body.dark .reason {
+    background: #292929;
+
+    color: #aaaaaa;
+}
+
+.reason.show {
+    display: block;
+}
+
+
+/* ==================================================
+   RESULT ANIMATION
+================================================== */
+
+.result-animation {
+    animation:
+        resultAppear 0.45s ease;
+}
+
+@keyframes resultAppear {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(12px);
+
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+        filter: blur(0);
+    }
+
+}
+
+
+/* ==================================================
+   RECOMMEND BUTTON
+================================================== */
+
+.recommend-button {
+    width: 100%;
+    height: 60px;
+
+    margin-top: 13px;
+
+    border: none;
+    border-radius: 18px;
+
+    background: #111111;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.12s ease,
+        opacity 0.12s ease;
+}
+
+body.dark .recommend-button {
+    background: #ffffff;
+
+    color: #111111;
+}
+
+.recommend-button:active {
+    transform: scale(0.97);
+
+    opacity: 0.75;
+}
+
+
+/* ==================================================
+   RECENT
+================================================== */
+
+.recent {
+    margin-top: 24px;
+}
+
+.recent-title {
+    margin-bottom: 9px;
+
+    color: #999999;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.recent-list {
+    display: flex;
+
+    gap: 7px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+}
+
+.recent-list::-webkit-scrollbar {
+    display: none;
+}
+
+.recent-item {
+    flex-shrink: 0;
+
+    padding: 8px 11px;
+
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    color: #777777;
+
+    font-size: 11px;
+}
+
+body.dark .recent-item {
+    border-color: #333333;
+
+    color: #aaaaaa;
+}
+
+
+/* ==================================================
+   SMALL SCREEN
+================================================== */
+
+@media (max-width: 360px) {
+
+    .app {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .hero h1 {
+        font-size: 33px;
+    }
+
+    #result {
+        font-size: 33px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <header class="header">
+
+        <div>
+
+            <div class="logo">
+                저메추
+            </div>
+
+            <div class="logo-sub">
+                오늘 저녁 메뉴 추천
+            </div>
+
+        </div>
+
+
+        <button
+            id="themeButton"
+            class="theme-button"
+            aria-label="다크모드 전환"
+        >
+            🌙
+        </button>
+
+    </header>
+
+
+
+    <!-- ==============================
+         HERO
+    =============================== -->
+
+    <section class="hero">
+
+        <div class="hero-label">
+            DINNER PICKER
+        </div>
+
+        <h1>
+            오늘 저녁 뭐 먹지?
+        </h1>
+
+
+    </section>
+
+
+
+    <!-- ==============================
+         INPUT
+    =============================== -->
+
+    <section class="input-card">
+
+        <div class="input-title">
+            어떤 걸 먹고 싶어?
+        </div>
+
+
+        <div class="input-wrap">
+
+            <span class="input-icon">
+                💭
+            </span>
+
+            <input
+                id="moodInput"
+                type="text"
+                autocomplete="off"
+                placeholder="예: 오늘은 매운 거 먹고 싶어"
+            >
+
+        </div>
+
+
+        <div class="examples">
+
+            <button
+                class="example"
+                data-text="매운 거 먹고 싶어"
+            >
+                🌶️ 매운 거
+            </button>
+
+            <button
+                class="example"
+                data-text="치즈 들어간 거"
+            >
+                🧀 치즈
+            </button>
+
+            <button
+                class="example"
+                data-text="달달한 거 먹고 싶어"
+            >
+                🍯 달달한 거
+            </button>
+
+            <button
+                class="example"
+                data-text="친구랑 먹을 거"
+            >
+                👭 친구랑
+            </button>
+
+            <button
+                class="example"
+                data-text="오늘 스트레스 받았어"
+            >
+                😮‍💨 스트레스
+            </button>
+
+            <button
+                class="example"
+                data-text="야식 먹고 싶어"
+            >
+                🌙 야식
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         CATEGORY
+    =============================== -->
+
+    <div class="category-header">
+
+        <div class="category-header-title">
+            오늘은 뭐가 땡겨?
+        </div>
+
+        <div class="category-header-sub">
+            선택사항
+        </div>
+
+    </div>
+
+
+    <div class="categories">
+
+        <button
+            class="category active"
+            data-category="전체"
+        >
+            전체
+        </button>
+
+        <button
+            class="category"
+            data-category="떡볶이"
+        >
+            🌶️ 떡볶이
+        </button>
+
+        <button
+            class="category"
+            data-category="마라"
+        >
+            🔥 마라
+        </button>
+
+        <button
+            class="category"
+            data-category="치킨"
+        >
+            🍗 치킨
+        </button>
+
+        <button
+            class="category"
+            data-category="피자"
+        >
+            🍕 피자
+        </button>
+
+        <button
+            class="category"
+            data-category="햄버거"
+        >
+            🍔 햄버거
+        </button>
+
+    </div>
+
+
+
+    <!-- ==============================
+         RESULT
+    =============================== -->
+
+    <section class="result-card">
+
+        <div class="result-label">
+            TODAY'S PICK
+        </div>
+
+
+        <div id="result">
+            메뉴 추천 받기
+        </div>
+
+
+        <div
+            id="resultDescription"
+            class="result-description"
+        >
+            원하는 느낌을 적고<br>
+            아래 버튼을 눌러봐.
+        </div>
+
+
+        <div
+            id="reason"
+            class="reason"
+        ></div>
+
+    </section>
+
+
+
+    <!-- ==============================
+         BUTTON
+    =============================== -->
+
+    <button
+        id="recommendButton"
+        class="recommend-button"
+    >
+        메뉴 추천 받기
+    </button>
+
+
+
+    <!-- ==============================
+         RECENT
+    =============================== -->
+
+    <section
+        id="recentSection"
+        class="recent"
+        style="display: none;"
+    >
+
+        <div class="recent-title">
+            최근 추천
+        </div>
+
+        <div
+            id="recentList"
+            class="recent-list"
+        ></div>
+
+    </section>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   메뉴 데이터
+========================================================= */
+
+const menus = [
+
+    /* =========================
+       🌶️ 떡볶이
+    ========================= */
+
+    {
+        name: "떡볶이",
+        category: "떡볶이",
+        tags: ["매운", "야식", "친구"]
+    },
+
+    {
+        name: "로제 떡볶이",
+        category: "떡볶이",
+        tags: ["매운", "치즈", "부드러운", "친구"]
+    },
+
+    {
+        name: "치즈 떡볶이",
+        category: "떡볶이",
+        tags: ["매운", "치즈", "친구"]
+    },
+
+    {
+        name: "라볶이",
+        category: "떡볶이",
+        tags: ["매운", "면", "야식"]
+    },
+
+    /* =========================
+       🔥 마라
+    ========================= */
+
+    {
+        name: "마라탕",
+        category: "마라",
+        tags: ["매운", "마라", "국물", "자극"]
+    },
+
+    {
+        name: "마라샹궈",
+        category: "마라",
+        tags: ["매운", "마라", "자극"]
+    },
+
+
+    /* =========================
+       🍗 치킨
+    ========================= */
+
+    {
+        name: "후라이드 치킨",
+        category: "치킨",
+        tags: ["바삭", "고기", "야식", "친구"]
+    },
+
+    {
+        name: "양념치킨",
+        category: "치킨",
+        tags: ["달달", "매운", "고기", "야식"]
+    },
+
+    {
+        name: "반반치킨",
+        category: "치킨",
+        tags: ["바삭", "고기", "친구", "야식"]
+    },
+
+    {
+        name: "닭강정",
+        category: "치킨",
+        tags: ["달달", "바삭", "야식"]
+    },
+
+
+    /* =========================
+       🍕 피자
+    ========================= */
+
+    {
+        name: "페퍼로니 피자",
+        category: "피자",
+        tags: ["치즈", "고기", "친구"]
+    },
+
+    {
+        name: "치즈 피자",
+        category: "피자",
+        tags: ["치즈", "친구"]
+    },
+
+    {
+        name: "불고기 피자",
+        category: "피자",
+        tags: ["치즈", "고기", "달달"]
+    },
+
+    {
+        name: "고르곤졸라 피자",
+        category: "피자",
+        tags: ["치즈", "달달"]
+    },
+
+
+    /* =========================
+       🍔 햄버거
+    ========================= */
+
+    {
+        name: "치즈버거",
+        category: "햄버거",
+        tags: ["치즈", "고기", "든든"]
+    },
+
+    {
+        name: "불고기버거",
+        category: "햄버거",
+        tags: ["달달", "고기", "든든"]
+    },
+
+    {
+        name: "치킨버거",
+        category: "햄버거",
+        tags: ["고기", "바삭", "든든"]
+    },
+
+];
+
+/* =========================================================
+   친구의 기본 선호 카테고리
+========================================================= */
+
+const favoriteCategories = [
+    "떡볶이",
+    "마라탕",
+    "치킨",
+    "피자",
+    "햄버거"
+];
+
+
+/* =========================================================
+   자연어 키워드
+========================================================= */
+
+const keywordGroups = {
+
+    매운: [
+        "매운",
+        "매콤",
+        "얼큰",
+        "화끈",
+        "자극",
+        "맵게",
+        "매워"
+    ],
+
+    치즈: [
+        "치즈",
+        "치즈맛"
+    ],
+
+    달달: [
+        "달달",
+        "달콤",
+        "단 거",
+        "단거"
+    ],
+
+    바삭: [
+        "바삭",
+        "튀김",
+        "튀겨"
+    ],
+
+    고기: [
+        "고기",
+        "돼지",
+        "소고기",
+        "닭",
+        "육류"
+    ],
+
+    친구: [
+        "친구",
+        "같이",
+        "여럿",
+        "둘이",
+        "모임"
+    ],
+
+    야식: [
+        "야식",
+        "밤",
+        "늦게",
+        "야밤"
+    ],
+
+    스트레스: [
+        "스트레스",
+        "힘들",
+        "짜증",
+        "화나",
+        "열받",
+        "시험",
+        "지쳤",
+        "지치"
+    ],
+
+    가벼운: [
+        "가볍",
+        "부담",
+        "조금",
+        "깔끔"
+    ],
+
+    마라: [
+        "마라",
+        "얼얼",
+        "마라탕"
+    ],
+
+    면: [
+        "면",
+        "분모자",
+        "당면"
+    ]
+
+};
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const moodInput =
+    document.getElementById("moodInput");
+
+const result =
+    document.getElementById("result");
+
+const resultDescription =
+    document.getElementById("resultDescription");
+
+const reason =
+    document.getElementById("reason");
+
+const recommendButton =
+    document.getElementById("recommendButton");
+
+const themeButton =
+    document.getElementById("themeButton");
+
+const categoryButtons =
+    document.querySelectorAll(".category");
+
+const exampleButtons =
+    document.querySelectorAll(".example");
+
+const recentSection =
+    document.getElementById("recentSection");
+
+const recentList =
+    document.getElementById("recentList");
+
+
+let selectedCategory = "전체";
+
+let lastMenu = null;
+
+let recentMenus = [];
+
+
+/* =========================================================
+   키워드 찾기
+========================================================= */
+
+function findKeywords(text) {
+
+    const found = [];
+
+    for (
+        const group in keywordGroups
+    ) {
+
+        const keywords =
+            keywordGroups[group];
+
+        const matched =
+            keywords.some(
+                keyword =>
+                    text.includes(keyword)
+            );
+
+        if (matched) {
+
+            found.push(group);
+
+        }
+
+    }
+
+    return found;
+
+}
+
+
+/* =========================================================
+   점수 계산
+========================================================= */
+
+function calculateScore(
+    menu,
+    keywords
+) {
+
+    /*
+        기본 랜덤성
+    */
+
+    let score =
+        Math.random() * 10;
+
+
+    /*
+        친구가 좋아하는 카테고리
+    */
+
+    if (
+        favoriteCategories.includes(
+            menu.category
+        )
+    ) {
+
+        score += 20;
+
+    }
+
+
+    /*
+        입력한 키워드
+    */
+
+    keywords.forEach(
+        keyword => {
+
+            if (
+                menu.tags.includes(
+                    keyword
+                )
+            ) {
+
+                score += 20;
+
+            }
+
+        }
+    );
+
+
+    /*
+        매운 음식
+    */
+
+    if (
+        keywords.includes("매운") &&
+        menu.tags.includes("매운")
+    ) {
+
+        score += 20;
+
+    }
+
+
+    /*
+        치즈
+    */
+
+    if (
+        keywords.includes("치즈") &&
+        menu.tags.includes("치즈")
+    ) {
+
+        score += 15;
+
+    }
+
+
+    /*
+        스트레스
+    */
+
+    if (
+        keywords.includes("스트레스")
+    ) {
+
+        if (
+            menu.tags.includes("매운")
+        ) {
+
+            score += 15;
+
+        }
+
+        if (
+            menu.tags.includes("야식")
+        ) {
+
+            score += 8;
+
+        }
+
+    }
+
+
+    /*
+        친구와 먹기
+    */
+
+    if (
+        keywords.includes("친구") &&
+        menu.tags.includes("친구")
+    ) {
+
+        score += 15;
+
+    }
+
+
+    /*
+        달달한 음식
+    */
+
+    if (
+        keywords.includes("달달") &&
+        menu.tags.includes("달달")
+    ) {
+
+        score += 18;
+
+    }
+
+
+    /*
+        바삭한 음식
+    */
+
+    if (
+        keywords.includes("바삭") &&
+        menu.tags.includes("바삭")
+    ) {
+
+        score += 18;
+
+    }
+
+
+    /*
+        가볍게 먹고 싶을 때
+    */
+
+    if (
+        keywords.includes("가벼운")
+    ) {
+
+        if (
+            menu.tags.includes("가벼운")
+        ) {
+
+            score += 20;
+
+        }
+
+        if (
+            menu.tags.includes("든든")
+        ) {
+
+            score -= 8;
+
+        }
+
+    }
+
+
+    return score;
+
+}
+
+
+/* =========================================================
+   추천 이유
+========================================================= */
+
+function makeReason(
+    menu,
+    keywords
+) {
+
+    if (
+        keywords.length === 0
+    ) {
+
+        return `${menu.category} 중에서 골라봤어 ✨`;
+
+    }
+
+
+    const reasonNames = {
+
+        매운: "매콤한 맛",
+        치즈: "치즈",
+        달달: "달달한 맛",
+        바삭: "바삭한 식감",
+        고기: "고기",
+        친구: "친구와 함께",
+        야식: "야식",
+        스트레스: "스트레스 해소",
+        가벼운: "가볍게 먹기",
+        마라: "얼얼한 마라맛",
+        면: "면"
+
+    };
+
+
+    const matched =
+        keywords.filter(
+            keyword =>
+                menu.tags.includes(
+                    keyword
+                )
+        );
+
+
+    if (
+        matched.length === 0
+    ) {
+
+        return "입력한 느낌을 참고해서 골라봤어 ✨";
+
+    }
+
+
+    const names =
+        matched
+            .slice(0, 2)
+            .map(
+                keyword =>
+                    reasonNames[keyword]
+            );
+
+
+    return `${names.join(" + ")}가 땡기는 날!`;
+
+}
+
+
+/* =========================================================
+   최근 메뉴
+========================================================= */
+
+function updateRecent(menu) {
+
+    recentMenus.unshift(menu);
+
+    recentMenus =
+        recentMenus
+            .filter(
+                (item, index, array) => {
+
+                    return (
+                        array.findIndex(
+                            x =>
+                                x.name ===
+                                item.name
+                        ) === index
+                    );
+
+                }
+            )
+            .slice(0, 5);
+
+
+    recentSection.style.display =
+        "block";
+
+
+    recentList.innerHTML = "";
+
+
+    recentMenus.forEach(
+        menu => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "recent-item";
+
+            item.textContent =
+                menu.name;
+
+            recentList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   추천
+========================================================= */
+
+function recommendMenu() {
+
+    const input =
+        moodInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const keywords =
+        findKeywords(input);
+
+
+    /*
+        카테고리 필터
+    */
+
+    let availableMenus;
+
+
+    if (
+        selectedCategory ===
+        "전체"
+    ) {
+
+        availableMenus =
+            [...menus];
+
+    } else {
+
+        availableMenus =
+            menus.filter(
+                menu =>
+                    menu.category ===
+                    selectedCategory
+            );
+
+    }
+
+
+    /*
+        점수 계산
+    */
+
+    const scored =
+        availableMenus.map(
+            menu => {
+
+                return {
+
+                    menu: menu,
+
+                    score:
+                        calculateScore(
+                            menu,
+                            keywords
+                        )
+
+                };
+
+            }
+        );
+
+
+    /*
+        높은 점수순 정렬
+    */
+
+    scored.sort(
+        (a, b) =>
+            b.score -
+            a.score
+    );
+
+
+    /*
+        상위 후보
+    */
+
+    let candidates =
+        scored
+            .slice(
+                0,
+                Math.min(
+                    6,
+                    scored.length
+                )
+            )
+            .map(
+                item =>
+                    item.menu
+            );
+
+
+    /*
+        바로 전 메뉴 방지
+    */
+
+    let pool =
+        candidates.filter(
+            menu =>
+                !lastMenu ||
+                menu.name !==
+                lastMenu.name
+        );
+
+
+    if (
+        pool.length === 0
+    ) {
+
+        pool = candidates;
+
+    }
+
+
+    /*
+        최종 선택
+    */
+
+    const selected =
+        pool[
+            Math.floor(
+                Math.random() *
+                pool.length
+            )
+        ];
+
+
+    lastMenu =
+        selected;
+
+
+    /*
+        애니메이션 리셋
+    */
+
+    result.classList.remove(
+        "result-animation"
+    );
+
+    reason.classList.remove(
+        "show"
+    );
+
+
+    void result.offsetWidth;
+
+
+    /*
+        결과 출력
+    */
+
+    result.textContent =
+        selected.name;
+
+
+    resultDescription.textContent =
+        `${selected.category} · 오늘의 추천`;
+
+
+    reason.textContent =
+        makeReason(
+            selected,
+            keywords
+        );
+
+
+    result.classList.add(
+        "result-animation"
+    );
+
+
+    reason.classList.add(
+        "show"
+    );
+
+
+    updateRecent(
+        selected
+    );
+
+}
+
+
+/* =========================================================
+   카테고리
+========================================================= */
+
+categoryButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        // 선택한 카테고리만 저장
+        selectedCategory =
+            button.dataset.category;
+
+        // 기존 선택 해제
+        categoryButtons.forEach(item => {
+            item.classList.remove("active");
+        });
+
+        // 현재 선택한 카테고리 활성화
+        button.classList.add("active");
+
+    });
+
+});
+
+
+/* =========================================================
+   예시 버튼
+========================================================= */
+
+exampleButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                moodInput.value =
+                    button.dataset.text;
+
+                moodInput.focus();
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   추천 버튼
+========================================================= */
+
+recommendButton.addEventListener(
+    "click",
+    recommendMenu
+);
+
+
+/* =========================================================
+   Enter
+========================================================= */
+
+moodInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            recommendMenu();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   DARK / LIGHT MODE
+========================================================= */
+
+const savedTheme =
+    localStorage.getItem(
+        "jeomchu-theme"
+    );
+
+
+if (
+    savedTheme === "dark"
+) {
+
+    document.body.classList.add(
+        "dark"
+    );
+
+    themeButton.textContent =
+        "☀️";
+
+}
+
+
+themeButton.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "dark"
+        );
+
+
+        const isDark =
+            document.body.classList.contains(
+                "dark"
+            );
+
+
+        if (isDark) {
+
+            themeButton.textContent =
+                "☀️";
+
+            localStorage.setItem(
+                "jeomchu-theme",
+                "dark"
+            );
+
+        } else {
+
+            themeButton.textContent =
+                "🌙";
+
+            localStorage.setItem(
+                "jeomchu-theme",
+                "light"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
+
+/*
+   개발 중에는 localhost에서
+   Service Worker를 사용하지 않는다.
+
+   GitHub Pages에 올리면 자동으로 활성화된다.
+*/
+
+if (
+    "serviceWorker" in navigator &&
+    location.hostname !== "localhost" &&
+    location.hostname !== "127.0.0.1"
+) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register(
+                    "./service-worker.js"
+                )
+                .then(
+                    () => {
+
+                        console.log(
+                            "저메추 PWA 활성화"
+                        );
+
+                    }
+                )
+                .catch(
+                    error => {
+
+                        console.error(
+                            "Service Worker 오류:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>
